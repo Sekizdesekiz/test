@@ -19,14 +19,13 @@ class PostApi {
           'username': userName,
           'password': passWord,
         }));
+    print(response.statusCode);
     if (response.statusCode == 200) {
       jsonResponse = jsonDecode(response.body);
       prefs.setString("token", jsonResponse["token"]);
-      prefs.setString("username", userName!);
-      prefs.setString("password", passWord!);
-      prefs.setString("check", check);
-      print("Kullanıcı Adı ${prefs.getString("username")}");
-      InfoPostApi.getCustomerInfo(jsonResponse["token"]);
+      prefs.setString("username", userName ?? "");
+      prefs.setString("passwor", passWord ?? "");
+      print("Kullanıcı token ${jsonResponse["token"]}");
       return CustomerGet.fromJson(jsonResponse);
     } else {
       throw Exception('Failed');

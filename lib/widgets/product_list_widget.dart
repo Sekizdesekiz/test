@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auth_project/data/info_post_api.dart';
 import 'package:auth_project/data/product_get_api.dart';
 import 'package:auth_project/models/customer_get.dart';
 import 'package:auth_project/models/product.dart';
@@ -19,21 +20,26 @@ class _ProductListWidgetState extends State<ProductListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.8,
-      child: Column(
-        children: [
-          searchButtonSection(),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(5),
-              child: ListView.builder(
-                itemBuilder: buildProducts,
-                itemCount: products.length,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Ürün Arama"),
+      ),
+      body: Container(
+        height: MediaQuery.of(context).size.height * 0.8,
+        child: Column(
+          children: [
+            searchButtonSection(),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.all(5),
+                child: ListView.builder(
+                  itemBuilder: buildProducts,
+                  itemCount: products.length,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

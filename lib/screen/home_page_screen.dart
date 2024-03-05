@@ -1,4 +1,7 @@
+import 'package:auth_project/data/company_api.dart';
+import 'package:auth_project/data/info_post_api.dart';
 import 'package:auth_project/models/info.dart';
+import 'package:auth_project/screen/compny_select_screen.dart';
 import 'package:auth_project/screen/login_screen.dart';
 import 'package:auth_project/widgets/product_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +30,7 @@ class _HomePageState extends State<HomePage> {
               print(pref?.getString("token"));
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                      builder: (BuildContext context) => const LoginPage()),
+                      builder: (BuildContext context) => LoginPage()),
                   (Route<dynamic> route) => false);
             },
             child: Text("Logout", style: TextStyle(color: Colors.redAccent)),
@@ -37,11 +40,20 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            Expanded(child: ProductListWidget()),
-          ],
-        ),
+        child: Center(
+            child: ElevatedButton(
+          onPressed: () {
+            var response = CompanyApi.getCompanyInfo();
+            if (response != null) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => CompanySelect(),
+                ),
+              );
+            }
+          },
+          child: Text("Firma Seç"),
+        )),
       ),
     );
   }

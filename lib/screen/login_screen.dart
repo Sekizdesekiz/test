@@ -9,8 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/customer_post.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -23,6 +21,13 @@ class _LoginPageState extends State<LoginPage> {
   Future<CustomerPost>? customerLogin;
   List<CustomerGet>? customers;
   SharedPreferences? pref;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadFromPreferences();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,12 +159,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   signIn(String email, password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     String check = isChecked.toString();
-    var response = PostApi.loginCustomer(email, password, check);
-    if (response != null) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-          (Route<dynamic> route) => false);
+    if (isChecked == true) {
+      prefs.setString("username", email);
+      prefs.setString("password", password);
+      var response = PostApi.loginCustomer(email, password, check);
+      if (response != null) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            (Route<dynamic> route) => false);
+      }
     } else {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
@@ -183,5 +194,19 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  Future<void> _loadFromPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String savedMail = prefs.getString('username') ?? '';
+    String savedPass = prefs.getString('password') ?? '';
+
+    if (savedMail != null) {
+      setState(() {
+        emailController.text = savedMail;
+        passwordController.text = savedPass;
+        isChecked = true;
+      });
+    }
   }
 }

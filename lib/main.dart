@@ -1,5 +1,10 @@
+import 'package:auth_project/data/post_api.dart';
 import 'package:auth_project/screen/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'screen/home_page_screen.dart';
+import 'screen/login_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +27,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  @override
   Widget build(BuildContext context) {
-    return SplashScreen();
+    return LoginPage();
   }
 }
