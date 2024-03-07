@@ -1,7 +1,6 @@
-import 'package:auth_project/data/post_api.dart';
-import 'package:auth_project/screen/splash_screen.dart';
+import 'package:auth_project/screen/compny_select_screen.dart';
+import 'package:auth_project/widgets/product_list_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screen/home_page_screen.dart';
 import 'screen/login_screen.dart';
@@ -14,6 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        "/loginPage": (context) => LoginPage(),
+        "/homePage": (context) => HomePage(),
+        "/companyPage": (context) => CompanySelect(),
+        "/productSearchPage": (context) => ProductListWidget(),
+      },
       title: 'Flutter Auth',
       home: MainPage(),
       theme: ThemeData(canvasColor: Colors.white70),

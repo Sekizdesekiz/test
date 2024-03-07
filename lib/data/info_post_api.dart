@@ -6,12 +6,11 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InfoPostApi {
-  static Future<Info> getCustomerInfo() async {
+  static Future<Info> getCustomerInfo(
+      String firmaKod0, String firmaDonemKod0) async {
     var jsonResponse = null;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
-    print("token2");
-    print(token);
     final response = await http.post(
       Uri.parse("http://testapi.koddanismanlik.com/api/auth/firmadonemsec"),
       headers: <String, String>{
@@ -19,12 +18,14 @@ class InfoPostApi {
         HttpHeaders.authorizationHeader: "Bearer $token"
       },
       body: jsonEncode(<String, String>{
-        'firma': "F0101",
-        'donem': "D0001",
+        'firma': firmaKod0,
+        'donem': firmaDonemKod0,
       }),
     );
     print(response.statusCode);
     if (response.statusCode == 200) {
+      prefs.setString("firmaKod", firmaKod0);
+      prefs.setString("firmaDonemKod", firmaDonemKod0);
       jsonResponse = jsonDecode(response.body);
       return Info.fromJson(jsonResponse);
     } else {

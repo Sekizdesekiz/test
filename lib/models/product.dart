@@ -11,14 +11,14 @@ class Product {
   late String barcode;
   late String pB1;
   late String dovizcinsi;
-  late int stokno;
+  late String stokno;
   late String koD9;
   late String resim;
   late double karoranI1;
   late int stoktipi;
-  late double giren;
-  late double cikan;
-  late double envanter;
+  late String giren;
+  late String cikan;
+  late String envanter;
   late double kdvharicalisfiyati;
   late double satisfiyatI1;
   late int aliskdvorani;
@@ -52,32 +52,34 @@ class Product {
       this.kdv,
       this.kdvharicmaliyet);
 
-  Product.fromJson(Map json) {
-    ind = json["ind"];
-    kuralis = json["kuralis"];
-    kursatis = json["kursatis"];
-    kdvdahilsatisfiyatI1 = json["kdvdahilsatisfiyatI1"];
-    kdvharicsatisfiyatI1 = json["kdvharicsatisfiyatI1"];
-    kdvdahilalisfiyati = json["kdvdahilalisfiyati"];
-    kdvdahilmaliyet = json["kdvdahilmaliyet"];
+  Product.fromJson(Map<String, dynamic> json) {
+    ind = int.parse(json["ind"].toString());
+    kuralis = double.parse(json["kuralis"].toString());
+    kursatis = double.parse(json["kursatis"].toString());
+    kdvdahilsatisfiyatI1 =
+        double.parse(json["kdvdahilsatisfiyatI1"].toString());
+    kdvharicsatisfiyatI1 =
+        double.parse(json["kdvharicsatisfiyatI1"].toString());
+    kdvdahilalisfiyati = double.parse(json["kdvdahilalisfiyati"].toString());
+    kdvdahilmaliyet = double.parse(json["kdvdahilmaliyet"].toString());
     stokkudu = json["stokkudu"].toString();
-    malincinsi = json["malincinsi"];
-    barcode = json["barcode"];
-    pB1 = json["pB1"];
-    dovizcinsi = json["dovizcinsi"];
-    stokno = json["stokno"];
+    malincinsi = json["malincinsi"].toString();
+    barcode = json["barcode"].toString();
+    pB1 = json["pB1"].toString();
+    dovizcinsi = json["dovizcinsi"].toString();
+    stokno = json["stokno"].toString();
     koD9 = json["koD9"].toString();
     resim = json["resim"].toString();
-    karoranI1 = json["karoranI1"];
-    stoktipi = json["stoktipi"];
-    giren = json["giren"];
-    cikan = json["cikan"];
-    envanter = json["envanter"];
-    kdvharicalisfiyati = json["kdvharicalisfiyati"];
-    satisfiyatI1 = json["satisfiyatI1"];
-    aliskdvorani = json["aliskdvorani"];
-    kdv = json["kdv"];
-    kdvharicmaliyet = json["kdvharicmaliyet"];
+    karoranI1 = double.parse(json["karoranI1"].toString());
+    stoktipi = int.parse(json["stoktipi"].toString());
+    giren = json["giren"].toString();
+    cikan = json["cikan"].toString();
+    envanter = json["envanter"].toString();
+    kdvharicalisfiyati = double.parse(json["kdvharicalisfiyati"].toString());
+    satisfiyatI1 = double.parse(json["satisfiyatI1"].toString());
+    aliskdvorani = int.parse(json["aliskdvorani"].toString());
+    kdv = double.parse(json["kdv"].toString());
+    kdvharicmaliyet = double.parse(json["kdvharicmaliyet"].toString());
   }
 
   Map toJson() {
