@@ -1,4 +1,5 @@
 import 'package:auth_project/screen/compny_select_screen.dart';
+import 'package:auth_project/screen/siprasi_screen.dart';
 import 'package:auth_project/widgets/product_list_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         "/homePage": (context) => HomePage(),
         "/companyPage": (context) => CompanySelect(),
         "/productSearchPage": (context) => ProductListWidget(),
+        "/siparisPage": (context) => SiparisPage(),
       },
       title: 'Flutter Auth',
       home: MainPage(),

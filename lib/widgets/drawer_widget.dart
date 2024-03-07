@@ -23,13 +23,20 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.home),
+              leading: Icon(Icons.add_shopping_cart),
+              title: Text("Sipariş"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                Navigator.pushNamed(context, "/siparisPage");
+              }),
+          ListTile(
+            leading: Icon(Icons.settings),
             title: Text("Ayarlar"),
             trailing: Icon(Icons.arrow_forward),
             onTap: () {
               Navigator.pushNamed(context, "/companyPage");
             },
-          )
+          ),
         ],
       ),
     );
