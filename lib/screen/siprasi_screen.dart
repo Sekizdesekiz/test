@@ -1,12 +1,22 @@
+import 'dart:convert';
+
 import 'package:auth_project/data/company_api.dart';
 import 'package:auth_project/data/info_post_api.dart';
 import 'package:auth_project/data/siparis_api.dart';
+import 'package:auth_project/models/siparis.dart';
+import 'package:auth_project/models/siparis_cevap.dart';
 import 'package:auth_project/screen/login_screen.dart';
 import 'package:auth_project/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SiparisPage extends StatelessWidget {
+class SiparisPage extends StatefulWidget {
+  @override
+  State<SiparisPage> createState() => _SiparisPageState();
+}
+
+class _SiparisPageState extends State<SiparisPage> {
+  late List<SiparisCevap> sipariss = [];
   SharedPreferences? pref;
 
   @override
@@ -213,10 +223,7 @@ class SiparisPage extends StatelessWidget {
   }
 
   void _siparisVer() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String firmaKod = prefs.getString("firmaKod") ?? "";
-    String firmaDonemKod = prefs.getString("firmaDonemKod") ?? "";
-    InfoPostApi.getCustomerInfo(firmaKod, firmaDonemKod);
-    await SiparisApi.postSiparis();
+    SiparisApi.postSiparis();
+    Navigator.pushNamed(context, "/siparisDetailPage");
   }
 }

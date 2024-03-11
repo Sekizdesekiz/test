@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auth_project/constants/company_provider.dart';
 import 'package:auth_project/data/company_api.dart';
 import 'package:auth_project/data/donem_api.dart';
 import 'package:auth_project/data/info_post_api.dart';
@@ -8,6 +9,7 @@ import 'package:auth_project/models/donem.dart';
 import 'package:auth_project/screen/login_screen.dart';
 import 'package:auth_project/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CompanySelect extends StatefulWidget {
@@ -120,6 +122,10 @@ class _CompanySelectState extends State<CompanySelect> {
             ),
             ElevatedButton(
                 onPressed: () async {
+                  context.read<CompanyProvider>().changeCompanyName(
+                      newCompanyNamePro: dropdownValue ?? "");
+                  context.read<CompanyProvider>().changeCompanyDonem(
+                      newCompanyDonemPro: dropdownValue2 ?? "");
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   prefs.setString("firmaAdi", dropdownValue ?? "");

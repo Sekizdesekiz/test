@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:auth_project/constants/company_provider.dart';
 import 'package:auth_project/models/info.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,6 +27,7 @@ class InfoPostApi {
     if (response.statusCode == 200) {
       prefs.setString("firmaKod", firmaKod0);
       prefs.setString("firmaDonemKod", firmaDonemKod0);
+
       jsonResponse = jsonDecode(response.body);
       return Info.fromJson(jsonResponse);
     } else {

@@ -2,22 +2,24 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:auth_project/constants/contant.dart';
+import 'package:auth_project/data/info_post_api.dart';
 import 'package:auth_project/models/siparis.dart';
+import 'package:auth_project/models/siparis_cevap.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class SiparisApi {
-  static Future<Siparis> postSiparis() async {
+  static Future<SiparisCevap> postSiparis() async {
     var jsonResponse = null;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
+
     String url = Contant.servisUrl;
     Map<String, String> headers = {
       HttpHeaders.authorizationHeader: "Bearer $token",
       HttpHeaders.contentTypeHeader: "application/json"
     };
-    print("buraya geldi");
     final response = await http.post(Uri.parse(url + "api/siparis/PostAsync"),
         headers: headers,
         body: jsonEncode({
@@ -60,9 +62,8 @@ class SiparisApi {
           ]
         }));
     jsonResponse = jsonDecode(response.body);
-    print("jsonResponse");
     print(jsonResponse);
-    print(response.statusCode);
-    return (Siparis.fromJson(jsonResponse));
+    var result = SiparisCevap.fromJson(jsonResponse);
+    return result;
   }
 }

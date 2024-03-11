@@ -20,13 +20,6 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   final TextEditingController searchController = TextEditingController();
 
   @override
-  void initState() {
-    // TODO: implement initState
-    _getA();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -122,12 +115,5 @@ class _ProductListWidgetState extends State<ProductListWidget> {
   void goProductDetail(Product product) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ProductDetailPage(product)));
-  }
-
-  void _getA() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String firmaKod = prefs.getString("firmaKod") ?? "";
-    String firmaDonemKod = prefs.getString("firmaDonemKod") ?? "";
-    InfoPostApi.getCustomerInfo(firmaKod, firmaDonemKod);
   }
 }

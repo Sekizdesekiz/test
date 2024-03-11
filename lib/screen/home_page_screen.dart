@@ -1,10 +1,13 @@
+import 'package:auth_project/constants/company_provider.dart';
 import 'package:auth_project/data/company_api.dart';
+import 'package:auth_project/data/info_post_api.dart';
 import 'package:auth_project/models/info.dart';
 import 'package:auth_project/screen/compny_select_screen.dart';
 import 'package:auth_project/screen/login_screen.dart';
 import 'package:auth_project/widgets/drawer_widget.dart';
 import 'package:auth_project/widgets/product_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +22,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _homePageTitle();
+
+    Future.delayed(const Duration(seconds: 3), () {
+      String firmaKod = pref?.getString("firmaKod") ?? "";
+      String firmaDonemKod = pref?.getString("firmaDonemKod") ?? "";
+      InfoPostApi.getCustomerInfo(firmaKod, firmaDonemKod);
+    });
     SharedPreferences.getInstance().then((SharedPreferences prefs) {
       setState(() {
         pref = prefs;
@@ -81,11 +89,12 @@ class _HomePageState extends State<HomePage> {
       children: [
         Align(
             alignment: Alignment.centerLeft,
-            child: Text("Firma Adı : ${pref?.getString("firmaAdi") ?? ""}")),
+            child: Text(
+                "Firma Adı : ${context.watch<CompanyProvider>().companyNamePro}")),
         Align(
             alignment: Alignment.centerLeft,
-            child:
-                Text("Firma Dönemi : ${pref?.getString("firmaDonem") ?? ""}")),
+            child: Text(
+                "Firma Dönemi : ${context.watch<CompanyProvider>().companyDonemPro}")),
       ],
     );
   }
